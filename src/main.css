@@ -1,0 +1,484 @@
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2018 Dan From
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ * 
+ * @author Dan From <dan.from@gmail.com>
+ * @version 1.0.0
+**/
+
+ul.treeBranch {
+  list-style: none;
+  padding: 0;
+}
+
+ul.treeBranch.root {
+}
+
+ul.treeBranch > li.treeNode {
+  transition: all .5s;
+  background-color: white;
+  border-bottom: 1px #007180 solid;
+  padding: 5px;
+  height: 47px;
+  position: relative;
+}
+
+li.treeNode > ul.treeBranch {
+}
+
+ul.treeBranch > li.treeNode > span.treeNode-spanner {
+  height: 10px;
+  background: rgba(255, 100, 100, .5);
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+ul.treeBranch > li.treeNode > span.treeNode-spanner.spanner-top {
+  top: 0;
+}
+
+ul.treeBranch > li.treeNode > span.treeNode-spanner.spanner-bottom {
+  bottom: 0;
+}
+
+ul.treeBranch > li.treeNode.hold {
+  transition: none;
+  opacity: .4;
+  background: red;
+}
+
+ul.treeBranch > li.treeNode.dragging {
+  transition: none;
+  opacity: .4;
+  background: red !important;
+}
+
+ul.treeBranch > li.treeNode.hovered {
+  background-color: #9cce69;
+}
+
+ul.treeBranch > li.treeNode.removing {
+  opacity: 0;
+}
+
+ul.treeBranch > li.treeNode:hover {
+  background-color: rgba(0, 113, 128, .1);
+}
+
+ul.treeBranch.root > li.treeNode:hover > span {
+  color: #007180;
+}
+
+ul.treeBranch.root > li.treeNode > ul.treeBranch > li.treeNode:hover > span {
+  color: #007180;
+}
+
+ul.treeBranch.root > li.treeNode > ul.treeBranch > li.treeNode > ul.treeBranch > li.treeNode:hover > span {
+  color: #007180;
+}
+
+ul.treeBranch.root > li.treeNode > ul.treeBranch > li.treeNode > ul.treeBranch > li.treeNode > ul.treeBranch > li.treeNode:hover > span {
+  color: white;
+}
+
+ul.treeBranch > li.treeNode.selected {
+  background: #70c8d4;
+}
+
+ul.treeBranch.root > li.treeNode.selected > span,
+ul.treeBranch > li.treeNode.selected > span {
+  color: white;
+}
+
+ul.treeBranch > li.treeNode span.treeNodeItem {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+ul.treeBranch > li.treeNode.expanded {
+  height: auto;
+}
+
+ul.treeBranch > li.treeNode span.treenode-button-bar {
+  right: 0;
+  top: 0;
+  position: absolute;
+  padding: 7px;
+}
+
+ul.treeBranch > li.treeNode span.treenode-button-bar button.treenode-button {
+  margin: 2px;
+  padding: 3px 5px;
+  pointer-events: auto;
+  border: 1px #1f6a8e solid;
+  border-radius: 5px;
+  background: #3b99c5;
+  color: white;
+  outline: 0;
+}
+
+ul.treeBranch > li.treeNode span.treenode-button-bar button.treenode-button:hover {
+  background: white;
+  color: #3b99c5;
+}
+
+ul.treeBranch > li.treeNode span.treenode-button-bar button.treenode-button * {
+  pointer-events: none;
+}
+
+ul.treeBranch > li.treeNode span.treenode-button-bar button.treenode-button .treenode-icon {
+  font-size: 16px;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+}
+
+ul.treeBranch > li.treeNode:last-child {
+  border-bottom: 0;
+}
+
+ul.treeBranch > li.treeNode > .treeNodeItem > span.treeNodeExpandIcon {
+  display: inline-block;
+  height: 100%;
+  padding: 5px;
+  pointer-events: auto;
+  cursor: pointer;
+  font-size: 18px;
+  opacity: 0;
+}
+
+ul.treeBranch > li.treeNode.expandable > .treeNodeItem > span.treeNodeExpandIcon {
+  opacity: 1;
+}
+
+ul.treeBranch > li.treeNode span.treeNodeExpandIcon * {
+  pointer-events: none;
+}
+
+ul.treeBranch > li.treeNode > .treeNodeItem > span.treeNodeExpandIcon > .treenode-arrow {
+  display: inline-block;
+  font-size: 18px;
+  
+  -webkit-transform:rotate(90deg);
+  -moz-transform:rotate(90deg); 
+  -o-transform:rotate(90deg);
+  transform:rotate(90deg);
+
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  -o-transition-property: -o-transform;
+   transition-property: transform;
+
+  -webkit-transition-duration: .5s;
+  -moz-transition-duration: .5s;
+  -o-transition-duration: .5s;
+   transition-duration: .5s;
+}
+
+ul.treeBranch > li.treeNode.expanded > .treeNodeItem > span.treeNodeExpandIcon > .treenode-arrow {
+  -webkit-transform:rotate(270deg);
+  -moz-transform:rotate(270deg); 
+  -o-transform:rotate(270deg);
+  transform:rotate(270deg);
+}
+
+ul.treeBranch > li.treeNode > span.treeNodeItem {
+  height: 37px; /* 10 has been removed because of the parents padding */
+}
+
+ul.treeBranch.animated li.treeNode > span.treeNodeItem span.treeNodeExpandIcon .on-closed {
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  -o-transition-property: -o-transform;
+   transition-property: transform;
+}
+
+ul.treeBranch li.treeNode.expanded > span.treeNodeItem span.treeNodeExpandIcon .on-closed {
+  /*display: none;*/
+  -webkit-transform:rotate(180deg);
+  -moz-transform:rotate(180deg); 
+  -o-transform:rotate(180deg);
+  transform:rotate(180deg);
+}
+
+ul.treeBranch > li.treeNode span.treeNodeIcon {
+  
+}
+
+ul.treeBranch > li.treeNode span.treeNodeText {
+  
+}
+
+ul.treeBranch > li.treeNode > span.treeNodeItem > input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin: 9px;
+  pointer-events: auto;
+}
+
+ul.treeBranch > li.treeNode > span.treeNodeItem > span.treeNodeText + input[type="checkbox"] {
+  float: right;
+  width: 20px;
+  height: 20px;
+  margin: 9px;
+  pointer-events: auto;
+}
+
+ul.treeBranch > li.treeNode:hover > span.treeNodeItem > span.treeNodeText + input[type="checkbox"] {
+  margin-right: 120px;
+}
+
+ul.treeBranch > li.treeNode > ul.treeBranch {
+  padding-left: 20px;
+  display: none;
+}
+
+ul.treeBranch > li.treeNode.expanded > ul.treeBranch {
+  display: block;
+}
+
+ul.treeBranch > li.treeNode.expanded > ul.treeBranch {
+  display: block;
+}
+
+ul.treeBranch > li.treeNode > ul.treeBranch > li.treeNode {
+}
+
+ul.treeBranch > li.treeNode > ul.treeBranch > li.treeNode > span.treeNodeItem {
+}
+
+ul.treeBranch > li.treeNode.expanded > ul.treeBranch > li.treeNode {
+  
+}
+
+/* for  */
+
+div.loading-background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .6);
+}
+
+div.loading-background i {
+}
+
+/* for loading */
+
+.treeview-loading-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 113, 128, .1);
+  text-align: center;
+}
+
+.treeview-loading-bg .spanner:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.treeview-loading-bg i {
+  color: #007180;
+}
+
+/* for popup */
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
+
+.treeview-popup {
+  visibility: hidden;
+  background-color: white;
+  border: 1px #1f6a8e solid;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 85%;
+  /*  left: 50%; */
+  /* margin-left: -80px; */
+  left: 0;
+}
+
+.treeview-popup > span {
+  display: inline-block;
+  width: 100%;
+}
+
+.treeview-popup input[type="text"] {
+  border: 1px #1f6a8e solid;
+  border-right: 0;
+  color: #3b99c5;
+  padding: 1px 5px;
+  outline: 0;
+  width: calc(100% - 70px);
+}
+
+.treeview-popup button:not(button.button-close) {
+  border: 1px #1f6a8e solid;
+  background: #3b99c5;
+  color: white;
+  width: 70px;
+}
+
+.treeview-popup button.button-close {
+  border: 0;
+  background: transparent;
+  color: white;
+  float: right;
+}
+
+.treeview-popup::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50px;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.treeview-popup.show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* styles */
+/* - dark (you can use this as a template to create your own style) */
+
+ul.treeBranch.dark > li.treeNode {
+  background-color: rgba(25, 27, 27, 0.6); 
+}
+
+ul.treeBranch.dark > li.treeNode > span {
+  color: white;
+}
+
+.dark ul.treeBranch > li.treeNode {
+  background-color: rgba(25, 27, 27, 0.6);
+  border-bottom: 1px #007180 solid;
+}
+
+.dark ul.treeBranch > li.treeNode > span {
+  color: white;
+}
+
+.dark ul.treeBranch > li.treeNode.dragging {
+  background: red !important;
+}
+
+.dark ul.treeBranch > li.treeNode.hovered,
+ul.treeBranch.dark > li.treeNode.hovered {
+  background-color: #9cce69 !important;
+}
+
+.dark ul.treeBranch > li.treeNode.removing {
+  opacity: 0;
+}
+
+ul.treeBranch.dark > li.treeNode:hover,
+.dark ul.treeBranch > li.treeNode:hover {
+  background-color: rgba(2, 23, 35, 0.6);
+}
+
+ul.treeBranch.root.dark li.treeNode:hover > span {
+  color: white !important; /* Important is here, so that we don't have to set the color for X amount of levels */
+}
+
+.dark ul.treeBranch > li.treeNode.selected {
+  background: #70c8d4;
+}
+
+ul.treeBranch.root.dark > li.treeNode.selected > span,
+.dark ul.treeBranch > li.treeNode.selected > span {
+  color: white;
+}
+
+.dark ul.treeBranch > li.treeNode span.treenode-button-bar button.treenode-button,
+ul.treeBranch.dark > li.treeNode span.treenode-button-bar button.treenode-button {
+  border: 1px #5b5e61 solid;
+  background: #171819;
+  color: white;
+}
+
+.dark ul.treeBranch > li.treeNode span.treenode-button-bar button.treenode-button:hover,
+ul.treeBranch.dark > li.treeNode span.treenode-button-bar button.treenode-button:hover {
+  background: white;
+  color: #171819;
+}
+
+.treeBranch > li.treeNode .treeview-popup {
+  background-color: #555555;
+  border: 1px #222222 solid;
+}
+
+.treeBranch > li.treeNode .treeview-popup input[type="text"] {
+  border: 1px #5b5e61 solid;
+  border-right: 0;
+  color: #171819;
+}
+
+.treeBranch > li.treeNode .treeview-popup button {
+  border: 1px #5b5e61 solid;
+  background: #171819;
+  color: white;
+}
+
+.treeBranch > li.treeNode .treeview-popup::after {
+  border-color: #555 transparent transparent transparent;
+}
+
+.dark .treeview-loading-bg {
+  background-color: rgba(0, 0, 0, .6);
+}
+
+.dark .treeview-loading-bg i {
+  color: white;
+}

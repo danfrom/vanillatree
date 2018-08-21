@@ -1,0 +1,24 @@
+{
+  "name": "VanillaTree",
+  "version": "1.0 beta 1",
+  "keywords": [
+    "treeview",
+    "vanilla",
+    "browser"
+  ],
+  "author": {
+    "name": "Dan From",
+    "email": "dan.from@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://git.deltasource.eu/deltasource/grunt-package.git"
+  },
+  "contributors": [],
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-cssmin": "^2.2.1",
+    "grunt-contrib-uglify": "^3.4.0"
+  }
+}
