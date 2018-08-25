@@ -577,7 +577,7 @@ var VanillaTree = (function () {
       var children = build(node.nodes, l, ids);
       var iSpan = document.createElement("span");
       iSpan.classList.add("treenode-arrow");
-      iSpan.innerHTML = "&#10516;";
+      iSpan.innerHTML = "&#10239;";
       if (children !== null) {
         treenode.appendChild(children);
         treenode.classList.add("expandable");
